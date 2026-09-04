@@ -5,6 +5,7 @@ const dotenv = require('dotenv');
 
 dotenv.config();
 
+const connectDB = require('./config/db');
 const { notFound, errorHandler } = require('./middleware/errorMiddleware');
 
 // Route files
@@ -27,8 +28,18 @@ if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'));
 }
 
+// Background DB connector (non-blocking)
+let dbInitAttempted = false;
+app.use((req, res, next) => {
+  if (!dbInitAttempted && process.env.MONGO_URI) {
+    dbInitAttempted = true;
+    connectDB().catch(() => {});
+  }
+  next();
+});
+
 // Health Check API
-app.get('/api/health', (req, res) => {
+app.get(['/api/health', '/health'], (req, res) => {
   res.json({
     status: 'OK',
     timestamp: new Date(),
@@ -37,14 +48,14 @@ app.get('/api/health', (req, res) => {
   });
 });
 
-// API Routes
-app.use('/api/auth', authRoutes);
-app.use('/api/courses', courseRoutes);
-app.use('/api/enrollments', enrollmentRoutes);
-app.use('/api/payments', paymentRoutes);
-app.use('/api/reviews', reviewRoutes);
-app.use('/api/discussions', discussionRoutes);
-app.use('/api/admin', adminRoutes);
+// API Routes - support both with /api and without /api prefixes for Vercel
+app.use(['/api/auth', '/auth'], authRoutes);
+app.use(['/api/courses', '/courses'], courseRoutes);
+app.use(['/api/enrollments', '/enrollments'], enrollmentRoutes);
+app.use(['/api/payments', '/payments'], paymentRoutes);
+app.use(['/api/reviews', '/reviews'], reviewRoutes);
+app.use(['/api/discussions', '/discussions'], discussionRoutes);
+app.use(['/api/admin', '/admin'], adminRoutes);
 
 // Error handling
 app.use(notFound);
