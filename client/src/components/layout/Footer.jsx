@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { GraduationCap, Github, Linkedin, Twitter, Heart } from 'lucide-react';
+import { GraduationCap, Github, Linkedin, Twitter, Heart, ShieldCheck } from 'lucide-react';
 
 export const Footer = () => {
   return (
@@ -19,11 +19,11 @@ export const Footer = () => {
               </span>
             </Link>
             <p className="text-sm text-slate-400 max-w-sm leading-relaxed">
-              Empowering developers, designers, and innovators worldwide with cutting-edge tech courses, interactive coding lessons, and verifiable industry certificates.
+              Empowering developers, designers, and tech leaders worldwide with cutting-edge production masterclasses, interactive coding lessons, and verifiable cryptographic certificates.
             </p>
             <div className="flex items-center gap-3 pt-2">
               <a
-                href="https://github.com"
+                href="https://github.com/rezaulislam54/EduVibe-E-learning-Platform"
                 target="_blank"
                 rel="noreferrer"
                 className="w-9 h-9 rounded-lg bg-slate-800 hover:bg-indigo-600 hover:text-white flex items-center justify-center transition-all"
@@ -52,7 +52,7 @@ export const Footer = () => {
           {/* Categories */}
           <div>
             <h4 className="text-sm font-bold text-white uppercase tracking-wider mb-4">
-              Top Categories
+              Top Disciplines
             </h4>
             <ul className="space-y-2.5 text-sm">
               <li>
@@ -62,17 +62,17 @@ export const Footer = () => {
               </li>
               <li>
                 <Link to="/courses?category=Data+Science+%26+AI" className="hover:text-indigo-400 transition-colors">
-                  Data Science & AI
+                  Generative AI & LLMs
                 </Link>
               </li>
               <li>
                 <Link to="/courses?category=Design+%26+UI%2FUX" className="hover:text-indigo-400 transition-colors">
-                  Design & UI/UX
+                  Design Systems & UX
                 </Link>
               </li>
               <li>
                 <Link to="/courses?category=Cloud+%26+DevOps" className="hover:text-indigo-400 transition-colors">
-                  Cloud & DevOps
+                  Cloud & Kubernetes
                 </Link>
               </li>
               <li>
@@ -83,10 +83,10 @@ export const Footer = () => {
             </ul>
           </div>
 
-          {/* Quick Links */}
+          {/* Quick Links / Pages */}
           <div>
             <h4 className="text-sm font-bold text-white uppercase tracking-wider mb-4">
-              Explore
+              Platform
             </h4>
             <ul className="space-y-2.5 text-sm">
               <li>
@@ -95,18 +95,23 @@ export const Footer = () => {
                 </Link>
               </li>
               <li>
-                <Link to="/courses?priceType=free" className="hover:text-indigo-400 transition-colors">
-                  Free Courses
+                <Link to="/instructors" className="hover:text-indigo-400 transition-colors">
+                  Meet Instructors
                 </Link>
               </li>
               <li>
-                <Link to="/register" className="hover:text-indigo-400 transition-colors">
-                  Become a Student
+                <Link to="/about" className="hover:text-indigo-400 transition-colors">
+                  About EduVibe
                 </Link>
               </li>
               <li>
-                <Link to="/register" className="hover:text-indigo-400 transition-colors">
-                  Teach on EduVibe
+                <Link to="/contact" className="hover:text-indigo-400 transition-colors">
+                  Help Center & Contact
+                </Link>
+              </li>
+              <li>
+                <Link to="/verify-certificate" className="text-emerald-400 hover:text-emerald-300 transition-colors flex items-center gap-1 font-semibold">
+                  <ShieldCheck size={14} /> Verify Certificate
                 </Link>
               </li>
             </ul>
@@ -127,6 +132,12 @@ export const Footer = () => {
               >
                 1-Click Demo Login
               </Link>
+              <Link
+                to="/instructors#apply-to-teach"
+                className="block text-center py-2 px-3 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-lg text-xs font-semibold transition-all"
+              >
+                Teach on EduVibe
+              </Link>
             </div>
           </div>
         </div>
@@ -142,3 +153,5 @@ export const Footer = () => {
     </footer>
   );
 };
+
+export default Footer;

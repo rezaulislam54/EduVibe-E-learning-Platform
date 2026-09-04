@@ -11,6 +11,10 @@ import { RoleRoute } from './components/common/RoleRoute';
 import { Home } from './pages/Home';
 import { Courses } from './pages/Courses';
 import { CourseDetails } from './pages/CourseDetails';
+import { AboutUs } from './pages/AboutUs';
+import { Instructors } from './pages/Instructors';
+import { ContactUs } from './pages/ContactUs';
+import { VerifyCertificate } from './pages/VerifyCertificate';
 import { Login } from './pages/Login';
 import { Register } from './pages/Register';
 import { MyLearning } from './pages/student/MyLearning';
@@ -38,6 +42,10 @@ const AppLayout = () => {
           <Route path="/" element={<Home />} />
           <Route path="/courses" element={<Courses />} />
           <Route path="/courses/:id" element={<CourseDetails />} />
+          <Route path="/about" element={<AboutUs />} />
+          <Route path="/instructors" element={<Instructors />} />
+          <Route path="/contact" element={<ContactUs />} />
+          <Route path="/verify-certificate" element={<VerifyCertificate />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
 

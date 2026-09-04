@@ -14,6 +14,9 @@ import {
   Award,
   Search,
   ChevronDown,
+  Info,
+  Users,
+  LifeBuoy
 } from 'lucide-react';
 import { Badge } from '../common/Badge';
 
@@ -65,11 +68,11 @@ export const Navbar = () => {
           {/* Search Bar - Desktop */}
           <form
             onSubmit={handleSearchSubmit}
-            className="hidden md:flex flex-1 max-w-md relative items-center"
+            className="hidden md:flex flex-1 max-w-sm relative items-center"
           >
             <input
               type="text"
-              placeholder="Search courses, skills, technologies..."
+              placeholder="Search courses, skills, roadmaps..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="w-full pl-10 pr-4 py-2 text-sm bg-slate-100 border border-slate-200 rounded-full focus:outline-none focus:ring-2 focus:ring-indigo-500/30 focus:border-indigo-500 transition-all placeholder:text-slate-400"
@@ -81,7 +84,7 @@ export const Navbar = () => {
           </form>
 
           {/* Desktop Navigation Links */}
-          <nav className="hidden lg:flex items-center gap-6">
+          <nav className="hidden lg:flex items-center gap-5">
             <Link
               to="/courses"
               className={`text-sm font-semibold transition-colors flex items-center gap-1.5 ${
@@ -91,7 +94,43 @@ export const Navbar = () => {
               }`}
             >
               <BookOpen size={16} />
-              Explore Courses
+              Courses
+            </Link>
+
+            <Link
+              to="/instructors"
+              className={`text-sm font-semibold transition-colors flex items-center gap-1.5 ${
+                isActive('/instructors')
+                  ? 'text-indigo-600'
+                  : 'text-slate-600 hover:text-indigo-600'
+              }`}
+            >
+              <Users size={16} />
+              Instructors
+            </Link>
+
+            <Link
+              to="/about"
+              className={`text-sm font-semibold transition-colors flex items-center gap-1.5 ${
+                isActive('/about')
+                  ? 'text-indigo-600'
+                  : 'text-slate-600 hover:text-indigo-600'
+              }`}
+            >
+              <Info size={16} />
+              About
+            </Link>
+
+            <Link
+              to="/contact"
+              className={`text-sm font-semibold transition-colors flex items-center gap-1.5 ${
+                isActive('/contact')
+                  ? 'text-indigo-600'
+                  : 'text-slate-600 hover:text-indigo-600'
+              }`}
+            >
+              <LifeBuoy size={16} />
+              Help & Contact
             </Link>
 
             {isAuthenticated && user?.role === 'student' && (
@@ -230,6 +269,15 @@ export const Navbar = () => {
                           My Profile
                         </Link>
 
+                        <Link
+                          to="/verify-certificate"
+                          onClick={() => setUserDropdownOpen(false)}
+                          className="flex items-center gap-2.5 px-4 py-2 text-sm text-slate-700 hover:bg-slate-50 hover:text-indigo-600 transition-colors"
+                        >
+                          <ShieldCheck size={16} />
+                          Verify Certificate
+                        </Link>
+
                         {user?.role === 'student' && (
                           <Link
                             to="/my-learning"
@@ -311,7 +359,7 @@ export const Navbar = () => {
           <form onSubmit={handleSearchSubmit} className="relative mb-3">
             <input
               type="text"
-              placeholder="Search courses..."
+              placeholder="Search courses, roadmaps..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="w-full pl-10 pr-4 py-2 text-sm bg-slate-100 border border-slate-200 rounded-xl"
@@ -328,6 +376,38 @@ export const Navbar = () => {
             className="block px-3 py-2 rounded-lg text-base font-semibold text-slate-800 hover:bg-slate-100"
           >
             Explore Courses
+          </Link>
+
+          <Link
+            to="/instructors"
+            onClick={() => setMobileMenuOpen(false)}
+            className="block px-3 py-2 rounded-lg text-base font-semibold text-slate-800 hover:bg-slate-100"
+          >
+            Meet Instructors
+          </Link>
+
+          <Link
+            to="/about"
+            onClick={() => setMobileMenuOpen(false)}
+            className="block px-3 py-2 rounded-lg text-base font-semibold text-slate-800 hover:bg-slate-100"
+          >
+            About Us
+          </Link>
+
+          <Link
+            to="/contact"
+            onClick={() => setMobileMenuOpen(false)}
+            className="block px-3 py-2 rounded-lg text-base font-semibold text-slate-800 hover:bg-slate-100"
+          >
+            Contact & Support
+          </Link>
+
+          <Link
+            to="/verify-certificate"
+            onClick={() => setMobileMenuOpen(false)}
+            className="block px-3 py-2 rounded-lg text-base font-semibold text-emerald-700 bg-emerald-50"
+          >
+            Verify Certificate
           </Link>
 
           {isAuthenticated && user?.role === 'student' && (
