@@ -503,10 +503,10 @@ const revokeEnrollment = async (req, res) => {
   }
 };
 
-// @desc    Get all invoices/orders
-// @route   GET /api/admin/orders
+// @desc    Get all transactions
+// @route   GET /api/admin/transactions
 // @access  Private (Admin)
-const getAllOrders = async (req, res) => {
+const getAllTransactions = async (req, res) => {
   try {
     if (mongoose.connection.readyState === 1) {
       const orders = await Order.find()
@@ -517,14 +517,14 @@ const getAllOrders = async (req, res) => {
       return res.json({
         success: true,
         count: orders.length,
-        orders,
+        transactions: orders,
       });
     }
 
     return res.json({
       success: true,
       count: 1,
-      orders: [
+      transactions: [
         {
           _id: 'ord_101',
           user: mockDataStore.users[3],
@@ -541,7 +541,39 @@ const getAllOrders = async (req, res) => {
     return res.json({
       success: true,
       count: 0,
-      orders: [],
+      transactions: [],
+    });
+  }
+};
+
+const getAllOrders = getAllTransactions;
+
+// @desc    Toggle refund status on transaction
+// @route   PUT /api/admin/transactions/:id/refund
+// @access  Private (Admin)
+const toggleRefundTransaction = async (req, res) => {
+  try {
+    if (mongoose.connection.readyState === 1) {
+      const order = await Order.findById(req.params.id);
+      if (order) {
+        order.status = order.status === 'refunded' ? 'completed' : 'refunded';
+        await order.save();
+        return res.json({
+          success: true,
+          transaction: order,
+          message: `Transaction status updated to ${order.status}`,
+        });
+      }
+    }
+
+    return res.json({
+      success: true,
+      message: 'Transaction refunded successfully',
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: error.message || 'Failed to refund transaction',
     });
   }
 };
@@ -633,6 +665,8 @@ const triggerDatabaseSeed = async (req, res) => {
   }
 };
 
+const reseedDatabase = triggerDatabaseSeed;
+
 module.exports = {
   getAdminStats,
   getAllAdminCourses,
@@ -645,8 +679,11 @@ module.exports = {
   deleteUser,
   getAllEnrollments,
   revokeEnrollment,
+  getAllTransactions,
   getAllOrders,
+  toggleRefundTransaction,
   getAllReviews,
   deleteReview,
   triggerDatabaseSeed,
+  reseedDatabase,
 };
