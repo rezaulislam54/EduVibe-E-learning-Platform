@@ -1,0 +1,29 @@
+{
+  "name": "eduvibe-elearning-platform",
+  "version": "1.0.0",
+  "description": "Full-Stack MERN E-Learning Platform with React, Node.js, Express, MongoDB, Stripe, and Socket.io",
+  "main": "server/server.js",
+  "scripts": {
+    "dev": "concurrently \"npm run dev --prefix client\" \"npm run dev --prefix server\"",
+    "start": "node server/server.js",
+    "seed": "node server/seed/seeder.js",
+    "install:all": "npm install && npm install --prefix server && npm install --prefix client",
+    "build": "npm run build --prefix client"
+  },
+  "keywords": [
+    "mern",
+    "react",
+    "nodejs",
+    "express",
+    "mongodb",
+    "tailwind",
+    "socketio",
+    "elearning",
+    "stripe"
+  ],
+  "author": "EduVibe Team",
+  "license": "MIT",
+  "devDependencies": {
+    "concurrently": "^9.1.2"
+  }
+}
